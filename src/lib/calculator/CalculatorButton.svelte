@@ -1,4 +1,5 @@
 <script lang="ts">
+  import mexp from "math-expression-evaluator";
   import { onMount } from "svelte";
   import { operation } from "../../stores";
 
@@ -24,9 +25,12 @@
   });
 
   function pressKey() {
+    if ($operation === "Infinity" || $operation === "NaN") $operation = "";
+
     if (value === "=") {
-      console.log(operationKeys);
-      $operation = "4";
+      $operation = mexp
+        .eval($operation.replace("×", "*").replace("÷", "/"))
+        .toString();
     } else if (value === "<") {
       if ($operation.endsWith(" ")) $operation = $operation.slice(0, -3);
       else $operation = $operation.slice(0, -1);
@@ -34,12 +38,15 @@
       $operation = "";
     } else if (cannotRepeat.includes(value)) {
       for (const char of cannotRepeat)
-        if ($operation.endsWith(`${char} `) || $operation.endsWith(char))
+        if (
+          !$operation ||
+          $operation.endsWith(`${char} `) ||
+          $operation.endsWith(char)
+        )
           return;
       $operation += operationKeys.includes(value) ? ` ${value} ` : value;
     } else {
       $operation += value;
-      console.log(+$operation);
     }
   }
 </script>

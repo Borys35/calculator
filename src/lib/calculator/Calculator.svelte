@@ -20,7 +20,7 @@
 
   @media (min-width: 768px) {
     .container {
-      width: 28rem;
+      width: max(28rem, 35vw);
     }
   }
 </style>

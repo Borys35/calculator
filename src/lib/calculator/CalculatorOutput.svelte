@@ -11,7 +11,9 @@
 </script>
 
 <div class="output" bind:this={output}>
-  <span class="text" bind:this={outputText}>{$operation}</span>
+  <span class="text" class:active={$operation} bind:this={outputText}
+    >{$operation || 0}</span
+  >
 </div>
 
 <style>
@@ -39,5 +41,10 @@
     line-height: 2em;
     width: fit-content;
     min-width: 100%;
+    color: grey;
+  }
+
+  .active {
+    color: black;
   }
 </style>
