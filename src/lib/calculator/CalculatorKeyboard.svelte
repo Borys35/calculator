@@ -6,16 +6,17 @@
     columnSpan?: number;
     rowSpan?: number;
     variant?: "default" | "operation" | "primary";
+    key?: string;
   }
 
   const buttons: CalculatorButtonProps[] = [
-    { value: "ce", columnSpan: 2 },
-    { value: "<" },
-    { value: "/", variant: "operation" },
+    { value: "ce", columnSpan: 2, key: "Escape" },
+    { value: "<", key: "Backspace" },
+    { value: "/", variant: "operation", key: "/" },
     { value: "9" },
     { value: "8" },
     { value: "7" },
-    { value: "x", variant: "operation" },
+    { value: "x", variant: "operation", key: "*" },
     { value: "6" },
     { value: "5" },
     { value: "4" },
@@ -26,7 +27,7 @@
     { value: "+", variant: "operation" },
     { value: "0", columnSpan: 2 },
     { value: "." },
-    { value: "=", variant: "primary" },
+    { value: "=", variant: "primary", key: "Enter" },
   ];
 </script>
 
