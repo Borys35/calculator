@@ -3,13 +3,24 @@
   import CalculatorOutput from "./CalculatorOutput.svelte";
 </script>
 
-<div class="grid">
+<div class="container">
   <CalculatorOutput />
   <CalculatorKeyboard />
 </div>
 
 <style>
-  .grid {
-    display: grid;
+  .container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+    padding: 1rem;
+    background: grey;
+  }
+
+  @media (min-width: 768px) {
+    .container {
+      width: 28rem;
+    }
   }
 </style>

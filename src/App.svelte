@@ -1,5 +1,6 @@
 <script lang="ts">
   import Calculator from "./lib/calculator/Calculator.svelte";
+  import "./styles.css";
 </script>
 
 <main>
@@ -10,17 +11,6 @@
   :root {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
       Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  }
-
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-
-  :global(body) {
-    margin: 0;
-    padding: 0;
   }
 
   main {
