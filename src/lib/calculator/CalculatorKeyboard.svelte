@@ -12,11 +12,11 @@
   const buttons: CalculatorButtonProps[] = [
     { value: "ce", columnSpan: 2, key: "Escape" },
     { value: "<", key: "Backspace" },
-    { value: "/", variant: "operation", key: "/" },
+    { value: "÷", variant: "operation", key: "/" },
     { value: "9" },
     { value: "8" },
     { value: "7" },
-    { value: "x", variant: "operation", key: "*" },
+    { value: "×", variant: "operation", key: "*" },
     { value: "6" },
     { value: "5" },
     { value: "4" },

@@ -17,18 +17,26 @@
     });
   });
 
-  const cannotRepeat = ["x", "/", "+", "-", "."];
+  const cannotRepeat = ["×", "÷", "+", "-", "."];
+  const operationKeys = cannotRepeat.flatMap((char) => {
+    if (char === ".") return [];
+    return [char];
+  });
 
   function pressKey() {
     if (value === "=") {
+      console.log(operationKeys);
       $operation = "4";
     } else if (value === "<") {
-      $operation = $operation.slice(0, -1);
+      if ($operation.endsWith(" ")) $operation = $operation.slice(0, -3);
+      else $operation = $operation.slice(0, -1);
     } else if (value === "ce") {
       $operation = "";
     } else if (cannotRepeat.includes(value)) {
-      for (const char of cannotRepeat) if ($operation.endsWith(char)) return;
-      $operation += ` ${value} `;
+      for (const char of cannotRepeat)
+        if ($operation.endsWith(`${char} `) || $operation.endsWith(char))
+          return;
+      $operation += operationKeys.includes(value) ? ` ${value} ` : value;
     } else {
       $operation += value;
       console.log(+$operation);

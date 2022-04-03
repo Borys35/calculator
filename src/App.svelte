@@ -19,7 +19,7 @@
 
   @media (min-width: 768px) {
     main {
-      padding: 3rem 6rem;
+      padding: 3rem 4rem;
     }
   }
 </style>
