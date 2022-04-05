@@ -5,7 +5,7 @@
 </script>
 
 <main>
-  <h1>Calculator</h1>
+  <h1>Calc.Svelte</h1>
   <div>
     <Calculator />
     <History />
@@ -37,6 +37,10 @@
     display: flex;
     flex-direction: column;
     gap: 4rem;
+  }
+
+  footer {
+    text-align: right;
   }
 
   @media (min-width: 640px) {

@@ -27,7 +27,7 @@
     background: var(--gradient-accent);
     display: flex;
     flex-direction: column;
-    padding: 1rem 2rem;
+    padding: 1.5rem 2rem;
     gap: 0.25rem;
     align-items: flex-end;
     white-space: nowrap;
