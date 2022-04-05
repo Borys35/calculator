@@ -1,10 +1,19 @@
 <script lang="ts">
   import Calculator from "./lib/calculator/Calculator.svelte";
+  import History from "./lib/history/History.svelte";
   import "./styles.css";
 </script>
 
 <main>
-  <Calculator />
+  <h1>Calculator</h1>
+  <div>
+    <Calculator />
+    <History />
+  </div>
+  <footer>
+    &copy; 2022-{new Date().getFullYear()}
+    <a href="https://github.com/Borys35" target="_blank">Borys Kaczmarek</a>
+  </footer>
 </main>
 
 <style>
@@ -14,12 +23,30 @@
   }
 
   main {
-    padding: 2rem;
+    min-height: 100vh;
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    max-width: 1440px;
+    margin: 0 auto;
   }
 
-  @media (min-width: 768px) {
+  div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  @media (min-width: 640px) {
     main {
-      padding: 3rem 4rem;
+      padding: 2rem 4rem;
+    }
+
+    div {
+      flex-direction: row;
+      align-items: flex-start;
     }
   }
 </style>

@@ -5,7 +5,54 @@
   font-family: "Roboto Mono", monospace;
 }
 
+:root {
+  font-size: 16px;
+  --gradient-background: linear-gradient(
+    116.82deg,
+    #149fed 0%,
+    #511093 52.4%,
+    #e72e9d 100%
+  );
+  --gradient-accent: linear-gradient(
+    93.43deg,
+    #be7ee6 0%,
+    #859df3 48.75%,
+    #8cbeec 100%
+  );
+  --color-white: #fff;
+  --color-light-gray: #e3e3e3;
+  --color-blue: 121, 164, 230;
+  --color-purple: 175, 121, 229;
+  --color-orange: 255, 180, 33;
+  --color-shadow: rgba(0, 0, 0, 0.1);
+}
+
 body {
+  background: var(--gradient-background) no-repeat center center fixed;
+  color: var(--color-white);
+}
+
+body,
+h1,
+h2 {
   margin: 0;
   padding: 0;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+a {
+  color: inherit;
+}
+
+@media (max-width: 1200px) {
+  :root {
+    font-size: 12px;
+  }
 }

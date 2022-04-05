@@ -1,7 +1,7 @@
 <script lang="ts">
   import mexp from "math-expression-evaluator";
   import { onMount } from "svelte";
-  import { operation } from "../../stores";
+  import { history, output, prevOutput } from "../../stores";
 
   export let value: string;
   export let columnSpan: number = 1;
@@ -25,28 +25,29 @@
   });
 
   function pressKey() {
-    if ($operation === "Infinity" || $operation === "NaN") $operation = "";
+    if ($output === "Infinity" || $output === "NaN") $output = "";
+    $prevOutput = "";
 
     if (value === "=") {
-      $operation = mexp
-        .eval($operation.replace("×", "*").replace("÷", "/"))
+      const prev = $output;
+      $output = mexp
+        .eval($output.replace("×", "*").replace("÷", "/"))
         .toString();
+      $prevOutput = prev;
+
+      $history = [...$history, { prev, output: $output }];
     } else if (value === "<") {
-      if ($operation.endsWith(" ")) $operation = $operation.slice(0, -3);
-      else $operation = $operation.slice(0, -1);
+      if ($output.endsWith(" ")) $output = $output.slice(0, -3);
+      else $output = $output.slice(0, -1);
     } else if (value === "ce") {
-      $operation = "";
+      $output = "";
     } else if (cannotRepeat.includes(value)) {
       for (const char of cannotRepeat)
-        if (
-          !$operation ||
-          $operation.endsWith(`${char} `) ||
-          $operation.endsWith(char)
-        )
+        if (!$output || $output.endsWith(`${char} `) || $output.endsWith(char))
           return;
-      $operation += operationKeys.includes(value) ? ` ${value} ` : value;
+      $output += operationKeys.includes(value) ? ` ${value} ` : value;
     } else {
-      $operation += value;
+      $output += value;
     }
   }
 </script>
@@ -63,18 +64,32 @@
 
 <style>
   .button {
-    background: aqua;
-    border: 0;
+    background: rgba(var(--color-blue), 0.2);
+    border: 1px solid rgba(var(--color-blue), 0.5);
+    border-radius: 1rem;
+    backdrop-filter: blur(10px);
+    box-shadow: 0px 4px 2rem var(--color-shadow);
     outline: 0;
     font-weight: bold;
     text-transform: uppercase;
     font-size: 2rem;
     cursor: pointer;
+    color: inherit;
+    transition: background 0.15s;
   }
   .operation {
-    background: gold;
+    background: rgba(var(--color-purple), 0.2);
   }
   .primary {
-    background: red;
+    background: rgba(var(--color-orange), 0.2);
+  }
+  .button:hover {
+    background: rgba(var(--color-blue), 0.4);
+  }
+  .operation:hover {
+    background: rgba(var(--color-purple), 0.4);
+  }
+  .primary:hover {
+    background: rgba(var(--color-orange), 0.4);
   }
 </style>

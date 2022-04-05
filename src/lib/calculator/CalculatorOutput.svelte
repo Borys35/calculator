@@ -1,27 +1,36 @@
 <script lang="ts">
   import { afterUpdate } from "svelte";
-  import { operation } from "../../stores";
+  import { output, prevOutput } from "../../stores";
 
-  let output: HTMLDivElement;
+  let outputElem: HTMLDivElement;
   let outputText: HTMLSpanElement;
 
   afterUpdate(() => {
-    output.scrollLeft = outputText.scrollWidth;
+    outputElem.scrollLeft = outputText.scrollWidth;
   });
 </script>
 
-<div class="output" bind:this={output}>
-  <span class="text" class:active={$operation} bind:this={outputText}
-    >{$operation || 0}</span
+<div class="output" bind:this={outputElem}>
+  {#if $prevOutput}
+    <span class="prev-text">{$prevOutput}</span>
+  {/if}
+  <span class="output-text" class:active={$output} bind:this={outputText}
+    >{$output || 0}</span
   >
 </div>
 
 <style>
   .output {
-    font-size: 3rem;
-    background: tomato;
     font-weight: bold;
     overflow-x: scroll;
+    border-radius: 2rem 2rem 0 0;
+    background: var(--gradient-accent);
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 2rem;
+    gap: 0.25rem;
+    align-items: flex-end;
+    white-space: nowrap;
 
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
@@ -32,19 +41,17 @@
     display: none;
   }
 
-  .text {
-    display: block;
-    white-space: nowrap;
-    padding: 0 0.5em;
-    text-align: right;
-    height: 2em;
-    line-height: 2em;
-    width: fit-content;
-    min-width: 100%;
-    color: grey;
+  .output-text {
+    font-size: 2rem;
+    color: var(--color-light-gray);
   }
 
-  .active {
-    color: black;
+  .output-text.active {
+    color: var(--color-white);
+  }
+
+  .prev-text {
+    color: var(--color-light-gray);
+    font-size: 1.25rem;
   }
 </style>
