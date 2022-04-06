@@ -1,26 +1,36 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
+  import { history } from "../../stores";
 
   export let output: string;
   export let prev: string;
+  export let index: number;
 
   const dispatch = createEventDispatcher();
 
   function handleClick() {
     dispatch("click");
   }
+
+  function deleteItem() {
+    let items = [...$history];
+    items.splice(index, 1);
+    $history = items;
+  }
 </script>
 
-<div on:click={handleClick}>
-  <span class="prev-text">{prev}</span>
-  <span class="output-text">{output}</span>
+<div on:click={handleClick} class="container">
+  <span class="delete" on:click={deleteItem}>✖</span>
+  <div class="text-container">
+    <span class="prev-text">{prev}</span>
+    <span class="output-text">{output}</span>
+  </div>
 </div>
 
 <style>
-  div {
+  .container {
     display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
+    justify-content: space-between;
 
     background: rgba(var(--color-purple), 0.2);
     border: 1px solid rgba(var(--color-purple), 0.5);
@@ -34,8 +44,14 @@
     transition: background 0.15s;
   }
 
-  div:hover {
+  .container:hover {
     background: rgba(var(--color-purple), 0.4);
+  }
+
+  .text-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
   }
 
   .prev-text {
@@ -45,5 +61,9 @@
 
   .output-text {
     font-size: 1.5rem;
+  }
+
+  .delete {
+    cursor: pointer;
   }
 </style>
